@@ -77,6 +77,11 @@ size_t String::get_length()
 	return this->m_size;
 }
 
+char * String::get_data()
+{
+	return this->data;
+}
+
 //Destuctor
 String::~String()
 {

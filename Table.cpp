@@ -29,9 +29,9 @@ void Table::edit_cell(size_t row, size_t column, String data)
 }
 
 //Print table
-void Table::print_table()
+bool Table::print_table()
 {
-	
+	if (cells.empty()) return false;
 		for (int row = 1; row <= this->max_row(); row++)
 		{
 			for (int column = 1; column <= this->max_column(); column++)
@@ -55,14 +55,15 @@ void Table::print_table()
 			}
 			cout << endl;
 		}
-		
+		return true;
 }
 
 //Save table
-void Table::save_table()
+bool Table::save_table()
 {
 	ofstream outFile;
-	outFile.open("C:\\Users\\dnede\\Desktop\\test1223.txt");
+	//String a("C:\\Users\\dnede\\Desktop\\hui.txt");
+	outFile.open(this->file_directory.get_data());
 
 	for (int row = 1; row <= this->max_row(); row++)
 	{
@@ -88,21 +89,19 @@ void Table::save_table()
 		outFile << "\n";
 	}
 	outFile.close();
-
+	return true;
 }
 
 //Open table
 bool Table::open_table()
 {
 	Validation check_for_type;
-
 	ifstream inFile;
-	inFile.open("asd.txt");
+	inFile.open(this->file_directory.get_data());
 
 	//Check For Error
 	if (inFile.fail())
 	{
-		cerr << "Erorr Opening Files\n";
 		return false;
 	}
 
@@ -149,7 +148,14 @@ bool Table::open_table()
 
 	return true;
 	inFile.close();
+}
 
+//Close table
+bool Table::close_table()
+{
+	this->cells.clear();
+	if(this->cells.empty()) return true;
+	else return false;
 }
 
 void Table::add_cell(size_t row, size_t column, String data)
@@ -199,6 +205,15 @@ size_t Table::max_length()
 	return max_length;
 }
 
+void Table::set_file_directory(String file)
+{
+	this->file_directory = file;
+}
+
+String Table::get_file_direcotry()
+{
+	return this->file_directory;
+}
 
 void Table::fill_empty_spaces(size_t length)
 {

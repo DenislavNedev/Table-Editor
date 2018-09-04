@@ -1,5 +1,6 @@
 #ifndef TABLE_H
 #define TABLE_H
+
 #include <vector>
 #include <fstream>
 #include <iomanip>      // std::setw
@@ -12,15 +13,21 @@ using namespace std;
 public:
 	
 	void edit_cell(size_t row, size_t column, String data);
-	void print_table();
+	bool print_table();
 	
-	void save_table();
+	bool save_table();
 	bool open_table();
+	bool close_table();
 
 	size_t max_length();
 
-protected:
+	void set_file_directory(String file);
+	String get_file_direcotry();
+
+private:
 	vector<Cell> cells;
+	String file_directory;
+
 	void add_cell(size_t row, size_t column, String data);
 	size_t max_row();
 	size_t max_column();

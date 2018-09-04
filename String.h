@@ -20,7 +20,7 @@ public:
 	char operator[](int number);
 
 	size_t get_length();
-
+	char* get_data();
 private:
 	char* data;
 	size_t c_size;
